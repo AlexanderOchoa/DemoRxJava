@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "c7e1cf25-1f95-4146-81ea-3b92d2b04ca5",
+		"name": "Exchange",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Exchange Rate",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MzYwOTQzNzEsInN1YiI6ImFkbWluIn0.5anfK_fvmQ6Ot5oEtW6sBVNJEpKZt75RIGF4edX0vQ4eq0Phu8_CZqoQzkqmxBmkMlO_70chL_r_5EIv6T-t_A",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/v1/exchanges/2/USD/PEN",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"exchanges",
+						"2",
+						"USD",
+						"PEN"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Exchange",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MzYwOTQzNzEsInN1YiI6ImFkbWluIn0.5anfK_fvmQ6Ot5oEtW6sBVNJEpKZt75RIGF4edX0vQ4eq0Phu8_CZqoQzkqmxBmkMlO_70chL_r_5EIv6T-t_A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 7,\r\n    \"currencyOrigin\": \"USD\",\r\n    \"currencyDestiny\": \"PEN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/exchanges",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"exchanges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authorization",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
