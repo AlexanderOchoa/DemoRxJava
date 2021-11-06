@@ -12,4 +12,5 @@ public class ExchangeResponse {
     private String currencyOrigin;
     private String currencyDestiny;
     private Double amountExchange;
+    private String date;
 }

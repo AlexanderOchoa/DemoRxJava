@@ -14,6 +14,7 @@ export class ExchangeComponent implements OnInit {
   currencyOriginLabel: string = "";
   currencyDestinyLabel: string = "";
   amountExchangeLabel: string = "";
+  dateLabel: string = "";
 
   constructor(public exchangeService: ExchangeService) {
   }
@@ -21,8 +22,8 @@ export class ExchangeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngGetExchange(amount: number, currencyOrigin: string, currencyDestiny: string) {
-    this.exchangeService.exchange(amount, currencyOrigin, currencyDestiny).subscribe(
+  ngGetExchange(amount: number, currencyOrigin: string, currencyDestiny: string, date: string) {
+    this.exchangeService.exchange(amount, currencyOrigin, currencyDestiny, date).subscribe(
       (data: any) => {
         this.errorLabel = "";
         this.amountLabel = data.data.amount;
@@ -30,6 +31,7 @@ export class ExchangeComponent implements OnInit {
         this.currencyOriginLabel = data.data.currencyOrigin;
         this.currencyDestinyLabel = data.data.currencyDestiny;
         this.amountExchangeLabel = data.data.amountExchange;
+        this.dateLabel = data.data.date;
       }, (error: any) => {
         this.errorLabel = "Por favor revise que los datos ingresados sean correctos. En caso el error persista, vuelva intentarlo luego.";
         this.ngCleanForm();
@@ -43,6 +45,7 @@ export class ExchangeComponent implements OnInit {
     this.currencyOriginLabel = "";
     this.currencyDestinyLabel = "";
     this.amountExchangeLabel = "";
+    this.dateLabel = "";
   }
 
 }

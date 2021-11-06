@@ -9,6 +9,9 @@ import io.reactivex.Single;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service
 public class ExchangeServiceImpl implements ExchangeService {
 
@@ -20,8 +23,8 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Override
-    public Single<ExchangeResponse> exchange(Double amount, String currencyOriginCode, String currencyDestinyCode) {
-        return proccessExchange(amount, currencyOriginCode, currencyDestinyCode);
+    public Single<ExchangeResponse> exchange(Double amount, String currencyOriginCode, String currencyDestinyCode, String date) {
+        return proccessExchange(amount, currencyOriginCode, currencyDestinyCode, date);
     }
 
     @Override
@@ -29,11 +32,12 @@ public class ExchangeServiceImpl implements ExchangeService {
         return proccessUpdate(request);
     }
 
-    private Single<ExchangeResponse> proccessExchange(Double amount, String currencyOrigin, String currencyDestiny) {
+    private Single<ExchangeResponse> proccessExchange(Double amount, String currencyOrigin, String currencyDestiny, String date) {
         return Single.create(singleSubscriber -> {
-            ExchangeRate exchangeRate = exchangeRepository.findByCurrencyOriginAndCurrencyDestiny(
+            ExchangeRate exchangeRate = exchangeRepository.findByCurrencyOriginAndCurrencyDestinyAndDate(
                     currencyOrigin,
-                    currencyDestiny
+                    currencyDestiny,
+                    getDateFromString(date)
             );
 
             Double result = Math.round((exchangeRate.getAmount() * amount) * 100.0) / 100.0;
@@ -44,6 +48,7 @@ public class ExchangeServiceImpl implements ExchangeService {
             exchangeResponse.setCurrencyOrigin(currencyOrigin);
             exchangeResponse.setCurrencyDestiny(currencyDestiny);
             exchangeResponse.setAmountExchange(exchangeRate.getAmount());
+            exchangeResponse.setDate(getStringFromDate(exchangeRate.getDate()));
 
             singleSubscriber.onSuccess(exchangeResponse);
         });
@@ -51,9 +56,10 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     private Single<String> proccessUpdate(ExchangeRequest request) {
         return Single.create(singleSubscriber -> {
-            ExchangeRate exchangeRate = exchangeRepository.findByCurrencyOriginAndCurrencyDestiny(
+            ExchangeRate exchangeRate = exchangeRepository.findByCurrencyOriginAndCurrencyDestinyAndDate(
                     request.getCurrencyOrigin().toUpperCase(),
-                    request.getCurrencyDestiny().toUpperCase()
+                    request.getCurrencyDestiny().toUpperCase(),
+                    getDateFromString(request.getDate())
             );
 
             exchangeRate.setAmount(request.getAmount());
@@ -62,6 +68,16 @@ public class ExchangeServiceImpl implements ExchangeService {
 
             singleSubscriber.onSuccess(idExchangeRate);
         });
+    }
+
+    private Date getDateFromString(String date) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.parse(date);
+    }
+
+    private String getStringFromDate(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(date);
     }
 
 }

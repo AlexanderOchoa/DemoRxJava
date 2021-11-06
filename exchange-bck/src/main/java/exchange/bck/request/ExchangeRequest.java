@@ -12,4 +12,5 @@ public class ExchangeRequest {
     private Double amount;
     private String currencyOrigin;
     private String currencyDestiny;
+    private String date;
 }

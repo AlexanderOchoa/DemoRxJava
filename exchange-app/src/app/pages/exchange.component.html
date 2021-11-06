@@ -1,11 +1,13 @@
 <div style="text-align:center">
   <h1>Exchange Rates</h1>
   <h5>*Currency: PEN, USD, EUR, ARS, ...</h5>
+  <h5>*Date: yyyy-MM-dd</h5>
   <div>
-    <form (submit)="ngGetExchange(amount.value, currencyOrigin.value, currencyDestiny.value)">
+    <form (submit)="ngGetExchange(amount.value, currencyOrigin.value, currencyDestiny.value, date.value)">
       <input type="text" #amount placeholder="Amount">
       <input type="text" #currencyOrigin placeholder="Currency origin">
       <input type="text" #currencyDestiny placeholder="Currency destiny">
+      <input type="text" #date placeholder="Date">
       <button type="submit">Exchange</button>
     </form>
   </div>
@@ -15,6 +17,7 @@
     <strong>Amount with exchange: </strong>{{amountWithExchangeLabel}}<br/>
     <strong>Currency origin: </strong>{{currencyOriginLabel}}<br/>
     <strong>Currency destiny: </strong>{{currencyDestinyLabel}}<br/>
-    <strong>Amount exchange: </strong>{{amountExchangeLabel}}
+    <strong>Amount exchange: </strong>{{amountExchangeLabel}}<br/>
+    <strong>Date: </strong>{{dateLabel}}
   </div>
 </div>

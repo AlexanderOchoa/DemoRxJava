@@ -24,12 +24,13 @@ public class ExchangeController {
         this.exchangeService = exchangeService;
     }
 
-    @GetMapping(value = "/{amount}/{currencyOrigin}/{currencyDestiny}")
+    @GetMapping(value = "/{amount}/{currencyOrigin}/{currencyDestiny}/{date}")
     public Single<ResponseEntity<GenericResponse>> exchange(@PathVariable Double amount,
                                                             @PathVariable String currencyOrigin,
-                                                            @PathVariable String currencyDestiny) {
-        LOGGER.info("Start to exchange: amount: {}, currencyOrigin: {}, currencyDestiny: {}", amount, currencyOrigin, currencyDestiny);
-        return exchangeService.exchange(amount, currencyOrigin.toUpperCase(), currencyDestiny.toUpperCase())
+                                                            @PathVariable String currencyDestiny,
+                                                            @PathVariable String date) {
+        LOGGER.info("Start to exchange: amount: {}, currencyOrigin: {}, currencyDestiny: {}, date: {}", amount, currencyOrigin, currencyDestiny, date);
+        return exchangeService.exchange(amount, currencyOrigin.toUpperCase(), currencyDestiny.toUpperCase(), date)
                 .subscribeOn(Schedulers.io())
                 .map(s -> ResponseEntity.ok(GenericResponse.successWithData(s)));
     }

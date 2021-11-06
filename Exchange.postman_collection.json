@@ -7,6 +7,9 @@
 	"item": [
 		{
 			"name": "Exchange Rate",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [
@@ -16,8 +19,17 @@
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"amount\": 1,\r\n    \"currencyOrigin\": \"USD\",\r\n    \"currencyDestiny\": \"PEN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/v1/exchanges/2/USD/PEN",
+					"raw": "http://localhost:8080/v1/exchanges/1/USD/PEN/2021-09-05",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -26,9 +38,10 @@
 					"path": [
 						"v1",
 						"exchanges",
-						"2",
+						"1",
 						"USD",
-						"PEN"
+						"PEN",
+						"2021-09-05"
 					]
 				}
 			},
@@ -47,7 +60,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"amount\": 7,\r\n    \"currencyOrigin\": \"USD\",\r\n    \"currencyDestiny\": \"PEN\"\r\n}",
+					"raw": "{\r\n    \"amount\": 7,\r\n    \"currencyOrigin\": \"USD\",\r\n    \"currencyDestiny\": \"PEN\",\r\n    \"date\": \"2021-09-05\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -3,6 +3,7 @@ package exchange.bck.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "exchange_rates")
@@ -21,4 +22,5 @@ public class ExchangeRate {
     private String currencyDestiny;
 
     private Double amount;
+    private Date date;
 }
